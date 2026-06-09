@@ -1,7 +1,7 @@
 
 `timescale 1ns/1ps
-`include "d_ff.v"
-`include "wtm16x16_complete.v"
+
+
 `include "filter_64.v"
 module tb;
 
