@@ -1,0 +1,11 @@
+# Keep generated/binary project assets clean in GitHub diffs.
+*.png binary
+*.jpg binary
+*.jpeg binary
+*.pdf binary
+*.mat binary
+
+# Help GitHub classify the source files.
+*.v linguist-language=Verilog
+*.tcl linguist-language=Tcl
+*.m linguist-language=MATLAB

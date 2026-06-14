@@ -1,0 +1,44 @@
+# Simulation outputs
+*.vcd
+*.fsdb
+*.vvp
+*.fst
+*.lxt
+*.lxt2
+*.wlf
+transcript
+work/
+WORK/
+
+# Synopsys / EDA generated work directories
+alib-52/
+icc2_output.txt
+*.log
+*.svf
+*.ddc
+*.mr
+*.pvl
+*.syn
+*.spef
+*.sdf
+*.rpt~
+command.log
+default.svf
+filenames.log
+simv
+simv.daidir/
+csrc/
+DVEfiles/
+
+# MATLAB generated cache/temp files
+*.asv
+*.m~
+slprj/
+*.slxc
+
+# OS/editor files
+.DS_Store
+Thumbs.db
+desktop.ini
+.vscode/
+.idea/
