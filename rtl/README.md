@@ -1,57 +1,32 @@
- # RTL Design and Verification
+# RTL
 
-## Overview
-
-The FIR filter was implemented in Verilog HDL using a shift-register based architecture.
-
-### Main Building Blocks
-
-* D Flip-Flops (Delay Line)
-* 16-bit Ripple Carry Adders
-* 32-bit Ripple Carry Adders
-* 16×16 Wallace Tree Multipliers
-* FIR Top Module
-
-The architecture consists of a tapped delay line followed by multiply-accumulate operations using constant FIR coefficients.
-
-## Verification Flow
-
-### Environment
-
-* Synopsys VCS
-* Verdi Debugger
-
-### Linux Commands
-
-```bash
-csh
-
-source /home/synopsys/tools/synopysis_c2s.cshrc
-
-vcs -full64 -debug_access+all -kdb tb.v
-
-./simv
-
-verdi -ssf filter_64.fsdb
-```
-
-### Verification Methodology
-
-1. Compile RTL and Testbench using VCS
-2. Generate FSDB waveform database
-3. Debug internal signals using Verdi
-4. Verify multiplier outputs
-5. Verify FIR filter functionality
-
-### Validation
-
-A constant input sequence was applied to the FIR filter.
-
-The output converged to the sum of FIR coefficients, confirming correct FIR operation.
+This folder contains the Verilog implementation of the 64th-order FIR filter and a simple testbench.
 
 ## Files
 
-* filter_64.v
-* tb.v
-* FIR schematic
-* Verdi waveforms
+| File | Purpose |
+| --- | --- |
+| `filter_64.v` | Complete RTL, including flip-flops, adders, Wallace Tree Multiplier blocks, and the top-level `filter_64` module |
+| `tb.v` | Testbench for basic input/output simulation |
+| `print.pdf` | RTL-related exported document |
+
+## Top-Level Interface
+
+```verilog
+module filter_64(
+    input ce,
+    input rst,
+    input [15:0] x,
+    input clk,
+    output [31:0] y
+);
+```
+
+## Simulation
+
+```sh
+iverilog -o filter_64_tb filter_64.v tb.v
+vvp filter_64_tb
+```
+
+The simulation writes `filter_64_tb.vcd` by default.

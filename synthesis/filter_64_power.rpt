@@ -1,0 +1,58 @@
+ 
+****************************************
+Report : power
+        -analysis_effort low
+Design : filter_64
+Version: V-2023.12
+Date   : Mon Jun  8 16:09:03 2026
+****************************************
+
+
+Library(s) Used:
+
+    saed32rvt_tt0p78vn40c (File: /home/ece/Downloads/C-DAC_july24/ref/lib/stdcell_rvt/saed32rvt_tt0p78vn40c.db)
+
+
+Operating Conditions: tt0p78vn40c   Library: saed32rvt_tt0p78vn40c
+Wire Load Model Mode: enclosed
+
+Design        Wire Load Model            Library
+------------------------------------------------
+filter_64              16000             saed32rvt_tt0p78vn40c
+
+
+Global Operating Voltage = 0.78 
+Power-specific unit information :
+    Voltage Units = 1V
+    Capacitance Units = 1.000000ff
+    Time Units = 1ns
+    Dynamic Power Units = 1uW    (derived from V,C,T units)
+    Leakage Power Units = 1pW
+
+
+Attributes
+----------
+i - Including register clock pin internal power
+
+
+  Cell Internal Power  = 130.1503 uW   (81%)
+  Net Switching Power  =  30.4232 uW   (19%)
+                         ---------
+Total Dynamic Power    = 160.5735 uW  (100%)
+
+Cell Leakage Power     =  25.7415 uW
+
+
+                 Internal         Switching           Leakage            Total
+Power Group      Power            Power               Power              Power   (   %    )  Attrs
+--------------------------------------------------------------------------------------------------
+io_pad             0.0000            0.0000            0.0000            0.0000  (   0.00%)
+memory             0.0000            0.0000            0.0000            0.0000  (   0.00%)
+black_box          0.0000            0.0000            0.0000            0.0000  (   0.00%)
+clock_network     58.1168            0.0000            0.0000           58.1168  (  31.19%)  i
+register           4.0317            1.3027        6.4768e+06           11.8112  (   6.34%)
+sequential         0.0000            0.0000            0.0000            0.0000  (   0.00%)
+combinational     68.0018           29.1205        1.9265e+07          116.3873  (  62.47%)
+--------------------------------------------------------------------------------------------------
+Total            130.1503 uW        30.4232 uW     2.5742e+07 pW       186.3152 uW
+1

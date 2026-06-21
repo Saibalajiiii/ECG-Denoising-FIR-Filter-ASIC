@@ -1,0 +1,153 @@
+ 
+****************************************
+Report : timing
+        -path full
+        -delay max
+        -max_paths 1
+Design : filter_64
+Version: V-2023.12
+Date   : Mon Jun  8 16:09:03 2026
+****************************************
+
+Operating Conditions: tt0p78vn40c   Library: saed32rvt_tt0p78vn40c
+Wire Load Model Mode: enclosed
+
+  Startpoint: uut4/q_reg[0]
+              (rising edge-triggered flip-flop clocked by clk)
+  Endpoint: y[31] (output port clocked by clk)
+  Path Group: clk
+  Path Type: max
+
+  Des/Clust/Port     Wire Load Model       Library
+  ------------------------------------------------
+  filter_64          16000                 saed32rvt_tt0p78vn40c
+
+  Point                                    Incr       Path
+  -----------------------------------------------------------
+  clock clk (rise edge)                    0.00       0.00
+  clock network delay (ideal)              0.00       0.00
+  uut4/q_reg[0]/CLK (DFFX1_RVT)            0.00       0.00 r
+  uut4/q_reg[0]/QN (DFFX1_RVT)             0.18       0.18 r
+  U33893/Y (NAND4X0_RVT)                   0.13       0.32 f
+  U33894/Y (OR2X1_RVT)                     0.14       0.46 f
+  U33895/Y (INVX0_RVT)                     0.05       0.51 r
+  U33896/Y (AND2X1_RVT)                    0.10       0.61 r
+  U33897/Y (AND2X1_RVT)                    0.10       0.71 r
+  U33898/Y (NAND2X0_RVT)                   0.08       0.79 f
+  U33899/Y (NOR4X0_RVT)                    0.18       0.97 r
+  U33900/Y (NAND2X0_RVT)                   0.08       1.05 f
+  U33901/Y (OR3X1_RVT)                     0.13       1.18 f
+  U33902/Y (OR2X1_RVT)                     0.11       1.29 f
+  U33903/Y (XOR2X1_RVT)                    0.24       1.53 f
+  U33916/Y (INVX0_RVT)                     0.21       1.73 r
+  U33918/Y (AO22X1_RVT)                    0.18       1.91 r
+  U33919/SO (HADDX1_RVT)                   0.18       2.09 f
+  U33932/Y (INVX0_RVT)                     0.07       2.16 r
+  U33934/SO (HADDX1_RVT)                   0.16       2.32 f
+  U33935/Y (AND2X1_RVT)                    0.11       2.43 f
+  U33936/Y (NAND2X0_RVT)                   0.09       2.52 r
+  U33939/Y (NAND2X0_RVT)                   0.08       2.60 f
+  U33940/Y (INVX0_RVT)                     0.06       2.66 r
+  U33941/Y (AO221X1_RVT)                   0.09       2.76 r
+  U33942/Y (NAND2X0_RVT)                   0.10       2.85 f
+  U34293/Y (AO221X1_RVT)                   0.18       3.04 f
+  U34294/Y (AND2X1_RVT)                    0.10       3.14 f
+  U34297/Y (OAI222X1_RVT)                  0.23       3.37 r
+  U34298/Y (NAND2X0_RVT)                   0.08       3.45 f
+  U37093/Y (OA21X1_RVT)                    0.13       3.58 f
+  U37280/Y (NAND2X0_RVT)                   0.07       3.65 r
+  U37281/Y (OA221X1_RVT)                   0.13       3.78 r
+  U37283/S (FADDX1_RVT)                    0.25       4.02 f
+  intadd_2/U6/S (FADDX1_RVT)               0.26       4.28 r
+  U34139/Y (INVX0_RVT)                     0.05       4.33 f
+  U34140/Y (OA22X1_RVT)                    0.11       4.44 f
+  U34142/Y (AO22X1_RVT)                    0.10       4.54 f
+  U34172/Y (INVX0_RVT)                     0.06       4.61 r
+  U34173/Y (AO222X1_RVT)                   0.17       4.77 r
+  U34199/Y (AO222X1_RVT)                   0.17       4.95 r
+  U34225/CO (FADDX1_RVT)                   0.19       5.14 r
+  U34242/Y (AO222X1_RVT)                   0.19       5.33 r
+  U34394/S (FADDX1_RVT)                    0.26       5.58 f
+  U34404/SO (HADDX1_RVT)                   0.17       5.75 f
+  U34407/CO (FADDX1_RVT)                   0.18       5.93 f
+  U34448/Y (OA22X1_RVT)                    0.16       6.08 f
+  U34450/Y (AO22X1_RVT)                    0.11       6.19 f
+  U34471/S (FADDX1_RVT)                    0.27       6.46 r
+  U34940/SO (HADDX1_RVT)                   0.17       6.63 f
+  U34941/Y (OA22X1_RVT)                    0.13       6.75 f
+  U34943/Y (AO22X1_RVT)                    0.11       6.86 f
+  U34964/S (FADDX1_RVT)                    0.26       7.12 r
+  U34966/SO (HADDX1_RVT)                   0.18       7.31 f
+  U35677/Y (AO22X1_RVT)                    0.15       7.45 f
+  U35680/Y (AO222X1_RVT)                   0.18       7.63 f
+  U35687/S (FADDX1_RVT)                    0.29       7.92 r
+  U35716/Y (INVX0_RVT)                     0.05       7.97 f
+  U35717/Y (AO22X1_RVT)                    0.12       8.09 f
+  U35720/Y (AO222X1_RVT)                   0.18       8.27 f
+  U35730/S (FADDX1_RVT)                    0.26       8.54 r
+  U35750/SO (HADDX1_RVT)                   0.17       8.70 f
+  U35751/Y (OA22X1_RVT)                    0.14       8.85 f
+  U35753/Y (AO22X1_RVT)                    0.10       8.95 f
+  U35771/CO (FADDX1_RVT)                   0.19       9.13 f
+  U35906/Y (OA21X1_RVT)                    0.17       9.30 f
+  U35945/Y (OR3X1_RVT)                     0.14       9.44 f
+  U35946/Y (AO22X1_RVT)                    0.10       9.54 f
+  U35951/S (FADDX1_RVT)                    0.27       9.81 r
+  U35998/SO (HADDX1_RVT)                   0.19      10.00 f
+  U35999/Y (INVX0_RVT)                     0.07      10.07 r
+  U36000/S (FADDX1_RVT)                    0.21      10.28 f
+  U36001/Y (INVX0_RVT)                     0.07      10.36 r
+  U36002/Y (NOR2X0_RVT)                    0.11      10.46 f
+  U36003/Y (NAND2X0_RVT)                   0.09      10.55 r
+  U36023/Y (NAND3X0_RVT)                   0.10      10.65 f
+  U36024/Y (OA221X1_RVT)                   0.14      10.79 f
+  U36025/SO (HADDX1_RVT)                   0.19      10.98 r
+  U36026/SO (HADDX1_RVT)                   0.17      11.15 f
+  U36027/SO (HADDX1_RVT)                   0.18      11.33 r
+  U36045/SO (HADDX1_RVT)                   0.16      11.49 f
+  U36046/SO (HADDX1_RVT)                   0.13      11.62 f
+  U36048/Y (NAND2X0_RVT)                   0.08      11.70 r
+  U36049/Y (OA21X1_RVT)                    0.10      11.80 r
+  U36050/Y (INVX0_RVT)                     0.05      11.85 f
+  U36051/SO (HADDX1_RVT)                   0.17      12.03 r
+  U36101/S (FADDX1_RVT)                    0.25      12.27 f
+  U36102/Y (AO21X1_RVT)                    0.10      12.37 f
+  U36103/Y (NAND2X0_RVT)                   0.07      12.45 r
+  U36104/SO (HADDX1_RVT)                   0.17      12.62 f
+  U36207/SO (HADDX1_RVT)                   0.18      12.80 r
+  U36212/Y (MUX21X1_RVT)                   0.18      12.98 f
+  U36213/Y (OA221X1_RVT)                   0.12      13.11 f
+  U36224/Y (AO21X1_RVT)                    0.10      13.20 f
+  U36225/SO (HADDX1_RVT)                   0.18      13.38 r
+  U36227/SO (HADDX1_RVT)                   0.17      13.55 f
+  U36228/Y (INVX0_RVT)                     0.06      13.61 r
+  U36229/Y (AOI221X1_RVT)                  0.12      13.73 f
+  U36230/Y (AO21X1_RVT)                    0.09      13.82 f
+  U36236/S (FADDX1_RVT)                    0.23      14.05 r
+  U36237/Y (INVX0_RVT)                     0.05      14.10 f
+  U36245/Y (OR2X1_RVT)                     0.10      14.19 f
+  U36247/Y (NAND2X0_RVT)                   0.08      14.28 r
+  U36252/SO (HADDX1_RVT)                   0.19      14.47 f
+  U36265/Y (NAND2X0_RVT)                   0.10      14.57 r
+  U36268/Y (NAND2X0_RVT)                   0.08      14.65 f
+  U36271/Y (INVX0_RVT)                     0.07      14.72 r
+  U36274/Y (NAND4X0_RVT)                   0.09      14.80 f
+  U36280/Y (OR2X1_RVT)                     0.15      14.95 f
+  U36293/S (FADDX1_RVT)                    0.27      15.22 r
+  U32645/S (FADDX1_RVT)                    0.22      15.44 f
+  y[31] (out)                              0.00      15.44 f
+  data arrival time                                  15.44
+
+  clock clk (rise edge)                   20.00      20.00
+  clock network delay (ideal)              0.00      20.00
+  clock uncertainty                       -0.30      19.70
+  output external delay                   -0.50      19.20
+  data required time                                 19.20
+  -----------------------------------------------------------
+  data required time                                 19.20
+  data arrival time                                 -15.44
+  -----------------------------------------------------------
+  slack (MET)                                         3.76
+
+
+1
