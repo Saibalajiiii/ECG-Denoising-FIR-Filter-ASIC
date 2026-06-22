@@ -29,13 +29,13 @@ The included [`JRNL3_Fin_rev_old.pdf`](JRNL3_Fin_rev_old.pdf) is the architectur
 ```text
 MATLAB Filter Designer + MIT-BIH ECG data
                     |
-             Simulink validation
-                    |
          Verilog RTL: FIR + HVWTM
                     |
        Synopsys VCS functional simulation
                     |
           Verdi FSDB waveform debug
+                    |
+             Simulink validation
                     |
      Synopsys Design Compiler synthesis
                     |
