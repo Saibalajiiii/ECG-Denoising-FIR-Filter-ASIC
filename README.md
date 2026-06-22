@@ -1,143 +1,150 @@
-# 64th-Order FIR Filter for ECG Denoising
+# ECG Denoising FIR Filter ASIC Using HVWTM
 
-This repository contains the RTL design, MATLAB/Simulink reference work, synthesis reports, and physical-design outputs for a **64th-order FIR filter** intended for ECG signal noise reduction.
+This repository documents the design and ASIC implementation flow of a **64th-order low-pass FIR filter for ECG denoising**. The datapath uses a **Hybrid Vedic-Wallace Tree Multiplier (HVWTM)** architecture, combining Vedic operand decomposition with Wallace Tree sub-multipliers.
 
-The digital filter is implemented in Verilog using a symmetric FIR structure and a Wallace Tree Multiplier based datapath. The project flow covers signal preparation, RTL simulation, logic synthesis, and physical-design stages.
+The complete academic flow was performed on a lab computer using licensed MATLAB and Synopsys tools. The repository preserves the RTL, MATLAB/Simulink validation, synthesis outputs, PrimeTime timing evidence, ICC2 physical-design scripts, reports, schematics, and screenshots.
 
-## Highlights
+## Architecture
 
-- 64th-order FIR filter architecture for ECG denoising
-- 16-bit input samples and 32-bit filter output
-- Wallace Tree Multiplier implementation for FIR coefficient multiplication
-- MATLAB script for clean/noisy ECG signal generation
-- Synopsys Design Compiler synthesis outputs
-- IC Compiler II physical-design scripts and screenshots
-- Area, timing, and power reports included
+![64th-order symmetric FIR architecture](architecture/fir_64.jpeg)
+
+The symmetric 64th-order FIR structure pairs input samples before multiplication. This reduces the implementation to 32 paired coefficient multipliers plus the center tap.
+
+The multiplier hierarchy is:
+
+```text
+16x16 HVWTM
+`-- four 8x8 WTM blocks
+    `-- four 4x4 WTM blocks
+```
+
+| 4x4 Wallace Tree block | 8x8 HVWTM/WTM hierarchy | 16x16 HVWTM |
+| --- | --- | --- |
+| ![4x4 WTM](architecture/wtm_4x4.jpeg) | ![8x8 HVWTM](architecture/hvwtm_8x8.jpeg) | ![16x16 HVWTM](architecture/hvwtm_16x16.jpeg) |
+
+The included [`JRNL3_Fin_rev_old.pdf`](JRNL3_Fin_rev_old.pdf) is the architecture reference used to understand the HVWTM-based ECG FIR design. The implementation in this repository was synthesized using the SAED 32 nm RVT library.
+
+## Tool Flow
+
+```text
+MATLAB Filter Designer + MIT-BIH ECG data
+                    |
+             Simulink validation
+                    |
+         Verilog RTL: FIR + HVWTM
+                    |
+       Synopsys VCS functional simulation
+                    |
+          Verdi FSDB waveform debug
+                    |
+     Synopsys Design Compiler synthesis
+                    |
+       Synopsys PrimeTime timing analysis
+                    |
+       Synopsys IC Compiler II physical design
+```
+
+| Stage | Tool |
+| --- | --- |
+| Coefficient design and ECG preparation | MATLAB |
+| System-level validation | Simulink with Vitis Model Composer |
+| RTL simulation | Synopsys VCS |
+| Waveform and schematic debug | Synopsys Verdi |
+| Logic synthesis | Synopsys Design Compiler |
+| Static timing analysis | Synopsys PrimeTime |
+| Floorplan through routing | Synopsys IC Compiler II |
 
 ## Repository Structure
 
 ```text
-.
-|-- rtl/                 # Verilog RTL and testbench
-|-- simulink/            # MATLAB script, ECG data, and Simulink/result images
-|-- synthesis/           # Design Compiler scripts, reports, constraints, netlists, schematics
-|-- physical_design/     # ICC2 TCL scripts and layout screenshots
-|-- docs/                # Repository documentation and asset index
-|-- JRNL3_Fin_rev_old.pdf
-|-- filter_designer.png
-`-- README.md
+architecture/       HVWTM and FIR architecture diagrams
+rtl/                Verilog source, testbench, Verdi evidence
+simulink/           ECG dataset, MATLAB script, model and results
+synthesis/          Design Compiler scripts, reports and netlist
+timing_analysis/    PrimeTime constraint experiments and results
+physical_design/    ICC2 floorplan, placement, CTS and routing
+docs/               Detailed artifact index
 ```
 
-## Design Flow
+## RTL Verification With VCS and Verdi
 
-This repository is intended to preserve the project files and results. The MATLAB, Simulink, Synopsys Design Compiler, and IC Compiler II runs were completed on a lab computer with the required licensed tools. A normal personal computer can still view the code, screenshots, reports, and documentation without installing those premium tools.
+The RTL was verified using Synopsys VCS and debugged in Verdi. It was not verified with Icarus Verilog.
 
-1. **Signal preparation**
-   - ECG data is loaded from `simulink/100m.mat`.
-   - `simulink/ECG1.m` generates clean and noisy ECG waveforms.
+```csh
+csh
+source /home/synopsys/tools/synopsys_c2s.cshrc
+cd rtl
+vcs -full64 -debug_access+all -kdb tb.v
+./simv
+verdi -ssf test.fsdb
+```
 
-2. **RTL design**
-   - `rtl/filter_64.v` contains the complete FIR datapath, adders, flip-flops, and multiplier modules.
-   - `rtl/tb.v` provides a simple simulation testbench.
+The testbench includes `filter_64.v` and writes `test.fsdb`.
 
-3. **Synthesis**
-   - `synthesis/dc_script.tcl` runs Design Compiler synthesis.
-   - Timing, area, and power reports are stored in `synthesis/`.
+| Elaborated DUT | Verdi waveform |
+| --- | --- |
+| ![Verdi DUT schematic](rtl/tb_dut.png) | ![Verdi waveform](rtl/tb_waveform.png) |
 
-4. **Physical design**
-   - `physical_design/*.tcl` scripts cover floorplanning, placement, power planning, clock tree synthesis, and routing.
-   - Layout screenshots are included for each major implementation stage.
+## Simulink Validation
 
-## Key Results
+The ECG signal is loaded from the MIT-BIH `100m` record. The MATLAB script adds Gaussian noise at 10 dB SNR, and the FIR RTL is connected as a black box in Simulink.
 
-| Metric | Value |
+| Simulink circuit | Input/output waveform |
+| --- | --- |
+| ![Simulink black-box circuit](simulink/simulink_ckt.png) | ![Simulink waveform](simulink/simulink_run.jpg) |
+
+## Synthesis Results
+
+Synopsys Design Compiler was run with the SAED 32 nm RVT library and a 20 ns clock constraint.
+
+| Metric | Result |
 | --- | ---: |
-| Technology library | SAED 32 nm RVT |
-| Clock period constraint | 20 ns |
+| Clock constraint | 20 ns |
+| Critical-path delay | 15.44 ns |
+| Setup slack | +3.76 ns, MET |
 | Total cell area | 14,552.539644 |
-| Total area | 17,531.567457 |
+| Total area including estimated interconnect | 17,531.567457 |
 | Dynamic power | 160.5735 uW |
 | Leakage power | 25.7415 uW |
 | Total reported power | 186.3152 uW |
-| Sequential cells | 320 |
 | Combinational cells | 4,980 |
+| Sequential cells | 320 |
 
-Source reports:
+See [`synthesis/README.md`](synthesis/README.md) and the original area, power, and timing reports for details.
 
-- [`synthesis/filter_64_area.rpt`](synthesis/filter_64_area.rpt)
-- [`synthesis/filter_64_power.rpt`](synthesis/filter_64_power.rpt)
-- [`synthesis/filter_64_timing.rpt`](synthesis/filter_64_timing.rpt)
+## PrimeTime Timing Study
 
-## Preview
+The supplied PrimeTime evidence demonstrates how the design responds to different timing constraints:
 
-### Filter Design
-
-![Filter Designer](filter_designer.png)
-
-### ECG Signals
-
-| Clean ECG | Noisy ECG |
+| Run | Observed result |
 | --- | --- |
-| ![Clean ECG](simulink/clean.jpg) | ![Noisy ECG](simulink/ecg_noisy.jpg) |
+| 1 ns constraint | 29 violating endpoints, WNS `-41.065 ns`, TNS `-651.377 ns` |
+| Intermediate run | Screenshot visibly reports a 10 ns edge and slack `-0.69 ns` |
+| 100 ns constraint | No setup violations and no hold violations |
 
-### Physical Design
+The intermediate image was originally described as a 50 ns experiment, but the visible report shows a 10.00 ns clock edge; it is documented according to the report itself.
 
-| Floorplan | Placement |
-| --- | --- |
-| ![Floorplan](physical_design/floorplan.png) | ![Placement](physical_design/placement.png) |
+See [`timing_analysis/README.md`](timing_analysis/README.md).
 
-| Power Plan | Routing |
-| --- | --- |
-| ![Power plan](physical_design/powerplan.png) | ![Routing](physical_design/route.png) |
+## Physical Design
 
-## Running the RTL Simulation
+The ICC2 flow includes floorplanning, power planning, placement, clock-tree synthesis, routing, and routed-output generation.
 
-From the repository root:
+| Floorplan | Placement | Clock tree |
+| --- | --- | --- |
+| ![Floorplan](physical_design/floorplan.png) | ![Placement](physical_design/placement.png) | ![Clock tree](physical_design/clock_tree.png) |
 
-```sh
-cd rtl
-iverilog -o filter_64_tb filter_64.v tb.v
-vvp filter_64_tb
-```
+| Power plan | CTS layout | Routed layout |
+| --- | --- | --- |
+| ![Power plan](physical_design/powerplan.png) | ![CTS](physical_design/cts.png) | ![Route](physical_design/route.png) |
 
-The default simulation writes `filter_64_tb.vcd`. To use FSDB dumping with a simulator that supports it, compile with the `FSDB` macro enabled.
+## Important Notes
 
-## Running the MATLAB Script
-
-Open MATLAB in the `simulink/` directory and run:
-
-```matlab
-ECG1
-```
-
-The script loads `100m.mat`, creates a noisy ECG signal at the configured SNR, and plots clean/noisy ECG waveforms.
-
-## Synthesis Notes
-
-The synthesis flow expects the local Synopsys/SAED setup referenced by the TCL scripts. These licensed tools are not required to browse the repository, but they are required to rerun synthesis. Paths such as `./../ref`, `./rm_setup/dc_setup.tcl`, and `./../CONSTRAINTS/filter_64.sdc` may need to be adjusted for a different lab machine.
-
-Main files:
-
-- [`synthesis/dc_script.tcl`](synthesis/dc_script.tcl)
-- [`synthesis/filter_64.sdc`](synthesis/filter_64.sdc)
-- [`synthesis/filter_64.mapped.v`](synthesis/filter_64.mapped.v)
-
-## Physical Design Notes
-
-The physical-design scripts were prepared for Synopsys IC Compiler II with SAED 32 nm reference libraries. These files document the completed lab flow and require the same licensed environment to rerun. They include:
-
-- [`physical_design/floorplan.tcl`](physical_design/floorplan.tcl)
-- [`physical_design/placement.tcl`](physical_design/placement.tcl)
-- [`physical_design/power_planning.tcl`](physical_design/power_planning.tcl)
-- [`physical_design/clock.tcl`](physical_design/clock.tcl)
-- [`physical_design/route.tcl`](physical_design/route.tcl)
-
-## Documentation
-
-Additional screenshots, schematics, and PDFs are indexed in [`docs/ASSET_INDEX.md`](docs/ASSET_INDEX.md).
-
-For publishing steps, see [`docs/GITHUB_UPLOAD_GUIDE.md`](docs/GITHUB_UPLOAD_GUIDE.md).
+- Premium EDA tools and the SAED PDK are not included.
+- Paths in TCL scripts refer to the original lab environment and may require adjustment.
+- Generated source, reports, and screenshots are preserved as evidence of the completed flow.
+- The source paper uses a Cadence/SCL 180 nm flow; this repository records a separate Synopsys/SAED 32 nm implementation of the HVWTM concept.
 
 ## License
 
-No license has been specified yet. Add a license before publishing if others should be allowed to reuse, modify, or distribute this work.
+The repository source is provided under the included [`LICENSE`](LICENSE). The included paper remains subject to its original authors' and publisher's rights.

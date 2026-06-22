@@ -1,26 +1,47 @@
-# Physical Design
+# Synopsys ICC2 Physical Design
 
-This folder contains IC Compiler II scripts and screenshots for the physical implementation flow.
+This folder documents the physical implementation of the synthesized `filter_64` netlist using Synopsys IC Compiler II and SAED 32 nm reference libraries.
 
-## Flow Scripts
+## Flow
 
-| Step | Script |
+| Stage | Script | Evidence |
+| --- | --- | --- |
+| Floorplan and pin placement | [`floorplan.tcl`](floorplan.tcl) | [`floorplan.png`](floorplan.png) |
+| Power delivery network | [`power_planning.tcl`](power_planning.tcl) | [`powerplan.png`](powerplan.png) |
+| Placement and legalization | [`placement.tcl`](placement.tcl) | [`placement.png`](placement.png) |
+| Clock-tree synthesis | [`clock.tcl`](clock.tcl) | [`cts.png`](cts.png) |
+| Global/track/detail routing | [`route.tcl`](route.tcl) | [`route.png`](route.png) |
+
+## Floorplan
+
+The input bus and clock are constrained to one side of the core, while the output bus is placed on the opposite side.
+
+![Floorplan](floorplan.png)
+
+## Placement and Power Planning
+
+| Placement | Power rings, mesh, and rails |
 | --- | --- |
-| Floorplan | `floorplan.tcl` |
-| Placement | `placement.tcl` |
-| Power planning | `power_planning.tcl` |
-| Clock tree synthesis | `clock.tcl` |
-| Routing | `route.tcl` |
+| ![Placement](placement.png) | ![Power plan](powerplan.png) |
 
-## Screenshots
+## Clock Tree
 
-| Stage | Image |
+The CTS flow uses `synthesize_clock_tree` and `clock_opt` with local-skew and concurrent clock/data optimization options.
+
+![Clock-tree browser](clock_tree.png)
+
+![CTS layout](cts.png)
+
+## Routing
+
+The routing script performs timing-driven global routing, track assignment, detail routing, antenna repair, and route optimization. It writes the routed Verilog, SDC, and SPEF outputs.
+
+![Routed layout](route.png)
+
+| Detailed routed view | Layout zoom |
 | --- | --- |
-| Floorplan | `floorplan.png` |
-| Placement | `placement.png` |
-| Power plan | `powerplan.png` |
-| Clock tree synthesis | `cts.png` |
-| Routing | `route.png` |
-| Layout zoom | `zoom.png` |
+| ![Detailed routed view](routed_detailed.png) | ![Layout zoom](zoom.png) |
 
-The TCL files assume a local SAED 32 nm PDK/reference-library setup. Adjust `PDK_PATH` and related input/output directories before rerunning.
+## Lab Dependency
+
+The scripts depend on the original SAED NDM and TLU+ files under `PDK_PATH`. These licensed PDK files are intentionally not included.

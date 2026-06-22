@@ -1,5 +1,6 @@
 
 `timescale 1ns/1ps
+`include "filter_64.v"
 
 module tb;
 
@@ -30,12 +31,7 @@ end
 
 
 initial begin
-`ifdef FSDB
-$fsdbDumpfile("test1.fsdb");
+$fsdbDumpfile("test.fsdb");
 $fsdbDumpvars(0,tb);
-`else
-$dumpfile("filter_64_tb.vcd");
-$dumpvars(0,tb);
-`endif
 end
 endmodule

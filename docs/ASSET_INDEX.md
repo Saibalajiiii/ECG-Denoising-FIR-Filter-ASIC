@@ -1,77 +1,75 @@
-# Asset Index
+# Repository Artifact Index
 
-This file lists the screenshots, documents, reports, and generated artifacts included with the project so they are easy to find from GitHub.
+This index maps the important source, report, document, and visual evidence in the repository.
 
-## Root Files
+## Architecture
 
-| File | Description |
+| Artifact | Description |
 | --- | --- |
-| [`filter_designer.png`](../filter_designer.png) | FIR/filter designer screenshot |
-| [`JRNL3_Fin_rev_old.pdf`](../JRNL3_Fin_rev_old.pdf) | Project paper/report PDF |
-| [`Screenshot from 2026-06-09 15-43-57.png`](../Screenshot%20from%202026-06-09%2015-43-57.png) | Project screenshot |
-| [`Screenshot from 2026-06-09 15-47-21.png`](../Screenshot%20from%202026-06-09%2015-47-21.png) | Project screenshot |
-| [`Screenshot from 2026-06-09 15-47-51.png`](../Screenshot%20from%202026-06-09%2015-47-51.png) | Project screenshot |
-| [`Screenshot from 2026-06-09 15-57-19.png`](../Screenshot%20from%202026-06-09%2015-57-19.png) | Project screenshot |
-| [`Screenshot from 2026-06-09 16-03-27.png`](../Screenshot%20from%202026-06-09%2016-03-27.png) | Project screenshot |
-| [`Screenshot from 2026-06-09 16-06-56.png`](../Screenshot%20from%202026-06-09%2016-06-56.png) | Project screenshot |
+| [`architecture/fir_64.jpeg`](../architecture/fir_64.jpeg) | Symmetric 64th-order FIR architecture |
+| [`architecture/hvwtm_16x16.jpeg`](../architecture/hvwtm_16x16.jpeg) | 16x16 hierarchical HVWTM |
+| [`architecture/hvwtm_8x8.jpeg`](../architecture/hvwtm_8x8.jpeg) | 8x8 hierarchical multiplier |
+| [`architecture/wtm_4x4.jpeg`](../architecture/wtm_4x4.jpeg) | 4x4 Wallace Tree partial-product reduction |
+| [`JRNL3_Fin_rev_old.pdf`](../JRNL3_Fin_rev_old.pdf) | Reference paper describing the HVWTM ECG FIR architecture |
 
-## RTL
+## RTL and Verification
 
-| File | Description |
+| Artifact | Description |
 | --- | --- |
-| [`rtl/filter_64.v`](../rtl/filter_64.v) | Complete Verilog RTL for the FIR filter and arithmetic blocks |
-| [`rtl/tb.v`](../rtl/tb.v) | Verilog testbench |
-| [`rtl/print.pdf`](../rtl/print.pdf) | RTL-related print/export |
-| [`rtl/Screenshot from 2026-06-08 15-22-32.png`](../rtl/Screenshot%20from%202026-06-08%2015-22-32.png) | RTL screenshot |
-| [`rtl/Screenshot from 2026-06-08 15-23-59.png`](../rtl/Screenshot%20from%202026-06-08%2015-23-59.png) | RTL screenshot |
+| [`rtl/filter_64.v`](../rtl/filter_64.v) | FIR, RCA, WTM, and HVWTM Verilog hierarchy |
+| [`rtl/tb.v`](../rtl/tb.v) | VCS testbench writing `test.fsdb` |
+| [`rtl/schematic.pdf`](../rtl/schematic.pdf) | RTL schematic export |
+| [`rtl/tb_dut.png`](../rtl/tb_dut.png) | Verdi DUT schematic |
+| [`rtl/tb_waveform.png`](../rtl/tb_waveform.png) | Verdi waveform |
 
-## Simulink and MATLAB
+## MATLAB and Simulink
 
-| File | Description |
+| Artifact | Description |
 | --- | --- |
-| [`simulink/ECG1.m`](../simulink/ECG1.m) | MATLAB script for ECG signal/noise generation |
-| [`simulink/100m.mat`](../simulink/100m.mat) | ECG input data |
-| [`simulink/clean.jpg`](../simulink/clean.jpg) | Clean ECG plot |
-| [`simulink/ecg_noisy.jpg`](../simulink/ecg_noisy.jpg) | Noisy ECG plot |
-| [`simulink/simulink_run.jpg`](../simulink/simulink_run.jpg) | Simulink run/output screenshot |
-| [`simulink/Screenshot from 2026-06-08 15-40-00.png`](../simulink/Screenshot%20from%202026-06-08%2015-40-00.png) | Simulink screenshot |
-| [`simulink/Screenshot from 2026-06-08 15-40-04.png`](../simulink/Screenshot%20from%202026-06-08%2015-40-04.png) | Simulink screenshot |
+| [`simulink/ECG1.m`](../simulink/ECG1.m) | ECG loading and noise-generation script |
+| [`simulink/100m.mat`](../simulink/100m.mat) | MIT-BIH ECG data |
+| [`simulink/simulink_ckt.png`](../simulink/simulink_ckt.png) | RTL black-box Simulink circuit |
+| [`simulink/simulink_run.jpg`](../simulink/simulink_run.jpg) | Simulink waveform |
+| [`simulink/clean.jpg`](../simulink/clean.jpg) | Clean ECG |
+| [`simulink/ecg_noisy.jpg`](../simulink/ecg_noisy.jpg) | Noisy ECG |
+| [`filter_designer.png`](../filter_designer.png) | MATLAB Filter Designer |
 
-## Synthesis
+## Design Compiler
 
-| File | Description |
+| Artifact | Description |
 | --- | --- |
-| [`synthesis/dc_script.tcl`](../synthesis/dc_script.tcl) | Synopsys Design Compiler script |
-| [`synthesis/filter_64.sdc`](../synthesis/filter_64.sdc) | Timing constraints |
-| [`synthesis/filter_64.mapped.v`](../synthesis/filter_64.mapped.v) | Synthesized mapped netlist |
-| [`synthesis/filter_64.mapped.sdc`](../synthesis/filter_64.mapped.sdc) | Mapped design constraints |
+| [`synthesis/dc_script.tcl`](../synthesis/dc_script.tcl) | Design Compiler flow |
+| [`synthesis/filter_64.sdc`](../synthesis/filter_64.sdc) | 20 ns synthesis constraints |
+| [`synthesis/filter_64.mapped.v`](../synthesis/filter_64.mapped.v) | Mapped netlist |
 | [`synthesis/filter_64_area.rpt`](../synthesis/filter_64_area.rpt) | Area report |
 | [`synthesis/filter_64_power.rpt`](../synthesis/filter_64_power.rpt) | Power report |
 | [`synthesis/filter_64_timing.rpt`](../synthesis/filter_64_timing.rpt) | Timing report |
-| [`synthesis/schematic.pdf`](../synthesis/schematic.pdf) | Schematic export |
-| [`synthesis/schematic_compile.pdf`](../synthesis/schematic_compile.pdf) | Compile schematic export |
-| [`synthesis/schematic_ultra.pdf`](../synthesis/schematic_ultra.pdf) | Compile Ultra schematic export |
-| [`synthesis/Screenshot from 2026-06-08 15-52-43.png`](../synthesis/Screenshot%20from%202026-06-08%2015-52-43.png) | Synthesis screenshot |
-| [`synthesis/Screenshot from 2026-06-08 15-52-55.png`](../synthesis/Screenshot%20from%202026-06-08%2015-52-55.png) | Synthesis screenshot |
-| [`synthesis/Screenshot from 2026-06-08 15-53-15.png`](../synthesis/Screenshot%20from%202026-06-08%2015-53-15.png) | Synthesis screenshot |
-| [`synthesis/Screenshot from 2026-06-08 15-54-07.png`](../synthesis/Screenshot%20from%202026-06-08%2015-54-07.png) | Synthesis screenshot |
-| [`synthesis/Screenshot from 2026-06-08 15-58-21.png`](../synthesis/Screenshot%20from%202026-06-08%2015-58-21.png) | Synthesis screenshot |
-| [`synthesis/Screenshot from 2026-06-08 16-00-38.png`](../synthesis/Screenshot%20from%202026-06-08%2016-00-38.png) | Synthesis screenshot |
-| [`synthesis/Screenshot from 2026-06-08 16-12-35.png`](../synthesis/Screenshot%20from%202026-06-08%2016-12-35.png) | Synthesis screenshot |
+| [`synthesis/design_compiler.png`](../synthesis/design_compiler.png) | Elaborated design |
+| [`synthesis/top_module.png`](../synthesis/top_module.png) | Top-level synthesized module |
+| [`synthesis/compile.png`](../synthesis/compile.png) | Compile schematic |
+| [`synthesis/compile_ultra.png`](../synthesis/compile_ultra.png) | Compile Ultra schematic |
 
-## Physical Design
+## PrimeTime
 
-| File | Description |
+| Artifact | Description |
 | --- | --- |
-| [`physical_design/floorplan.tcl`](../physical_design/floorplan.tcl) | ICC2 floorplan script |
-| [`physical_design/placement.tcl`](../physical_design/placement.tcl) | ICC2 placement script |
-| [`physical_design/power_planning.tcl`](../physical_design/power_planning.tcl) | ICC2 power planning script |
-| [`physical_design/clock.tcl`](../physical_design/clock.tcl) | ICC2 clock tree synthesis script |
-| [`physical_design/route.tcl`](../physical_design/route.tcl) | ICC2 routing script |
-| [`physical_design/floorplan.png`](../physical_design/floorplan.png) | Floorplan screenshot |
-| [`physical_design/placement.png`](../physical_design/placement.png) | Placement screenshot |
-| [`physical_design/powerplan.png`](../physical_design/powerplan.png) | Power planning screenshot |
-| [`physical_design/cts.png`](../physical_design/cts.png) | Clock tree synthesis screenshot |
-| [`physical_design/route.png`](../physical_design/route.png) | Routing screenshot |
-| [`physical_design/zoom.png`](../physical_design/zoom.png) | Layout zoom screenshot |
-| [`physical_design/Screenshot from 2026-06-09 11-17-33.png`](../physical_design/Screenshot%20from%202026-06-09%2011-17-33.png) | Physical-design screenshot |
+| [`timing_analysis/primetime_1ns_violations.png`](../timing_analysis/primetime_1ns_violations.png) | Aggressive constraint with setup violations |
+| [`timing_analysis/intermediate_timing_violation.png`](../timing_analysis/intermediate_timing_violation.png) | Intermediate path with -0.69 ns slack |
+| [`timing_analysis/primetime_100ns_clean.png`](../timing_analysis/primetime_100ns_clean.png) | Relaxed run without setup/hold violations |
+
+## IC Compiler II
+
+| Artifact | Description |
+| --- | --- |
+| [`physical_design/floorplan.tcl`](../physical_design/floorplan.tcl) | Floorplan script |
+| [`physical_design/power_planning.tcl`](../physical_design/power_planning.tcl) | Power network script |
+| [`physical_design/placement.tcl`](../physical_design/placement.tcl) | Placement script |
+| [`physical_design/clock.tcl`](../physical_design/clock.tcl) | CTS script |
+| [`physical_design/route.tcl`](../physical_design/route.tcl) | Routing script |
+| [`physical_design/floorplan.png`](../physical_design/floorplan.png) | Floorplan |
+| [`physical_design/powerplan.png`](../physical_design/powerplan.png) | Power plan |
+| [`physical_design/placement.png`](../physical_design/placement.png) | Placement |
+| [`physical_design/clock_tree.png`](../physical_design/clock_tree.png) | Clock-tree browser |
+| [`physical_design/cts.png`](../physical_design/cts.png) | CTS layout |
+| [`physical_design/route.png`](../physical_design/route.png) | Routed layout |
+| [`physical_design/routed_detailed.png`](../physical_design/routed_detailed.png) | Detailed routed view |
